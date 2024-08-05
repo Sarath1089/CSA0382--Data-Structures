@@ -1,0 +1,76 @@
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+int stack[MAX_SIZE];
+int minStack[MAX_SIZE];
+int top = -1;
+
+int main() {
+    // Function to push an element onto the stack
+    #define push(val) \
+        do { \
+            if (top == MAX_SIZE - 1) { \
+                printf("Stack is full. Cannot push.\n"); \
+                break; \
+            } \
+            if (top == -1 || (val) <= minStack[top]) { \
+                minStack[++top] = (val); \
+            } \
+            stack[++top] = (val); \
+            printf("Pushed: %d\n", (val)); \
+        } while (0)
+
+    // Function to pop an element from the stack
+    #define pop() \
+        do { \
+            if (top == -1) { \
+                printf("Stack is empty. Cannot pop.\n"); \
+                break; \
+            } \
+            int popped = stack[top--]; \
+            if (popped == minStack[top + 1]) { \
+                top--; /* Adjust minStack when the minimum element is popped */ \
+            } \
+            printf("Popped: %d\n", popped); \
+        } while (0)
+
+    // Function to get the top element of the stack
+    #define topElement() \
+        do { \
+            if (top == -1) { \
+                printf("Stack is empty. Cannot get top element.\n"); \
+                break; \
+            } \
+            printf("Top Element: %d\n", stack[top]); \
+        } while (0)
+
+    // Function to retrieve the minimum element in the stack
+    #define getMin() \
+        do { \
+            if (top == -1) { \
+                printf("Stack is empty. Cannot get minimum element.\n"); \
+                break; \
+            } \
+            printf("Minimum Element: %d\n", minStack[top]); \
+        } while (0)
+
+    // Test the MinStack operations
+    push(3);
+    push(5);
+    getMin();
+    push(2);
+    push(1);
+    getMin();
+    pop();
+    getMin();
+    pop();
+    topElement();
+
+    #undef push
+    #undef pop
+    #undef topElement
+    #undef getMin
+
+    return 0;
+}

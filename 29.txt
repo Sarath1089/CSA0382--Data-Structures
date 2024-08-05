@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int main() {
+    // Creating a linked list
+    struct Node* head = malloc(sizeof(struct Node));
+    head->data = 1;
+
+    head->next = malloc(sizeof(struct Node));
+    head->next->data = 2;
+
+    head->next->next = malloc(sizeof(struct Node));
+    head->next->next->data = 3;
+
+    head->next->next->next = NULL;
+
+    // Print the linked list in reverse order
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+
+    return 0;
+}
